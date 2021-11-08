@@ -50,7 +50,7 @@ fn serialize<S: ser::Serializer>(ipld: &Ipld, ser: S) -> Result<S::Ok, S::Error>
             ser.collect_map(map)
         }
         Ipld::Link(link) => {
-            let value = base64::encode(&link.to_bytes());
+            let value = multibase::encode(multibase::Base::Base64, &link.to_bytes());
             let mut map = BTreeMap::new();
             map.insert("/", value);
 
